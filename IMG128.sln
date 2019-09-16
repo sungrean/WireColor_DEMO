@@ -1,29 +1,20 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
-MinimumVisualStudioVersion = 10.0.40219.1
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMG128", "IMG128\IMG128.csproj", "{89F67DD7-B153-4C94-805D-A68C8EE7EA3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{89F67DD7-B153-4C94-805D-A68C8EE7EA3F}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{89F67DD7-B153-4C94-805D-A68C8EE7EA3F}.Debug|x86.ActiveCfg = Debug|x86
 		{89F67DD7-B153-4C94-805D-A68C8EE7EA3F}.Debug|x86.Build.0 = Debug|x86
-		{89F67DD7-B153-4C94-805D-A68C8EE7EA3F}.Release|Any CPU.ActiveCfg = Release|x86
 		{89F67DD7-B153-4C94-805D-A68C8EE7EA3F}.Release|x86.ActiveCfg = Release|x86
 		{89F67DD7-B153-4C94-805D-A68C8EE7EA3F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {99302AB4-EEEC-4922-AE81-39B391661DBA}
 	EndGlobalSection
 EndGlobal

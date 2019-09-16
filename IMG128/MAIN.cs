@@ -32,7 +32,7 @@ public struct WC_DEV_CFG
     public Single widthRatio;           //判别是否各导线分开的阈值
     public Single seperationRatio;      //多条导线并在一起时，拆分各导线宽度时使用的阈值 0.0-0.5之间，值越小约束条件越强。>=0.5时无此约束
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
-    public UInt32[] reserved;					//备以后扩展
+    UInt32[] reserved;					//备以后扩展
 };
 namespace IMG128
 {
@@ -42,7 +42,8 @@ namespace IMG128
     {
 
         DevCfgDlg dlgDevCfg;
-        public REC devRec = new REC(); 
+        public REC devRec = new REC();
+        public CFG_T devCfg = new CFG_T();
         public Protocol devProtocol = new Protocol();
         long openDevCfgDlgTimeOut;
 
@@ -79,7 +80,7 @@ namespace IMG128
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string [] ports = SerialPort.GetPortNames(); 
+            string [] ports = SerialPort.GetPortNames();
             cBoxCOMPORT.Items.AddRange(ports);
             cBoxCOMPORT.Text = ports[ports.Length-1];//"COM5";
             btnOpen_Click(this, e);
@@ -111,6 +112,7 @@ namespace IMG128
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -251,6 +253,8 @@ namespace IMG128
                 for (x = 0; x < w; x++)
                     bmp.SetPixel(x, y, bmp.GetPixel(x, h2));
   
+           
+
             pictureBox1.Image = bmp;        //将放大后的图片显示到界面
 
             //画RGB曲线
@@ -337,6 +341,38 @@ namespace IMG128
             DrawRecImg(rec);    //显示记录录的图片
         }
 
+        void RecDeal(COMM_FRAME_T frm)
+        {
+            ANAL_T anal = new ANAL_T();
+            anal = (ANAL_T)BytesToStruct(frm.data, Marshal.SizeOf(typeof(ANAL_T)), typeof(ANAL_T));
+            REC_ITEM rec = new REC_ITEM();
+            rec.img = anal.img;
+
+            int i;
+            for(i = 0; i < REC.PIX_NUM; i++)
+            {
+                if (rec.img[REC.LINE_SHADE1].pix[i] == 0)
+                    rec.img[REC.LINE_SHADE1].pix[i] = 255;
+                else
+                    rec.img[REC.LINE_SHADE1].pix[i] = 0;
+                if (rec.img[REC.LINE_SHADE2].pix[i] == 0)
+                    rec.img[REC.LINE_SHADE2].pix[i] = 255;
+                else
+                    rec.img[REC.LINE_SHADE2].pix[i] = 0;
+            }
+            ShowRec(rec);
+        }
+
+        //BytesToStruct
+        public object BytesToStruct(byte[] buf, int len, Type type)
+        {
+            object rtn;
+            IntPtr buffer = Marshal.AllocHGlobal(len);
+            Marshal.Copy(buf, 0, buffer, len);
+            rtn = Marshal.PtrToStructure(buffer, type);
+            Marshal.FreeHGlobal(buffer);
+            return rtn;
+        }
 
         //串口数据帧中type的定义，UInt16型，保存两个字节ASCII码
         //const ushort FRAME_TYPE_LI = 0x494C;	//"LI" Login
@@ -394,8 +430,8 @@ namespace IMG128
                         if (dlgDevCfg.IsDisposed)
                             dlgDevCfg = new DevCfgDlg(this);
 
-                        //dlgDevCfg.CfgFreameDeal(frameRX);
-                        //dlgDevCfg.UpdateShow(devCfg);
+                        dlgDevCfg.CfgFreameDeal(frameRX);
+                        dlgDevCfg.UpdateShow(devCfg);
                         if (openDevCfgDlgTimeOut > 0)
                         {
                             dlgDevCfg.Show();
@@ -426,7 +462,9 @@ namespace IMG128
                     //case FRAME_TYPE_MS: COMM_cmdMS(port, p); break;	//20190618 选择基准波形
                     //case FRAME_TYPE_FS: COMM_cmdFS(port, p); break;	//20190722 厂家设置
                     //case FRAME_TYPE_DT: COMM_cmdDT(); break;	//20190722 厂家设置
-
+                    case Protocol.FRAME_TYPE_MD:
+                        RecDeal(frameRX);
+                        break;
                     default: break;
                 }
 

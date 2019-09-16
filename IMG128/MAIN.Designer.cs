@@ -192,28 +192,28 @@
             // 参数设置ToolStripMenuItem
             // 
             this.参数设置ToolStripMenuItem.Name = "参数设置ToolStripMenuItem";
-            this.参数设置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.参数设置ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.参数设置ToolStripMenuItem.Text = "参数设置";
             this.参数设置ToolStripMenuItem.Click += new System.EventHandler(this.参数设置ToolStripMenuItem_Click);
             // 
             // 导入配置文件ToolStripMenuItem
             // 
             this.导入配置文件ToolStripMenuItem.Name = "导入配置文件ToolStripMenuItem";
-            this.导入配置文件ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.导入配置文件ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.导入配置文件ToolStripMenuItem.Text = "导入配置文件";
             this.导入配置文件ToolStripMenuItem.Click += new System.EventHandler(this.导入配置文件ToolStripMenuItem_Click);
             // 
             // 导出配置文件ToolStripMenuItem
             // 
             this.导出配置文件ToolStripMenuItem.Name = "导出配置文件ToolStripMenuItem";
-            this.导出配置文件ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.导出配置文件ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.导出配置文件ToolStripMenuItem.Text = "导出配置文件";
             this.导出配置文件ToolStripMenuItem.Click += new System.EventHandler(this.导出配置文件ToolStripMenuItem_Click);
             // 
             // 修改密码ToolStripMenuItem
             // 
             this.修改密码ToolStripMenuItem.Name = "修改密码ToolStripMenuItem";
-            this.修改密码ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.修改密码ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.修改密码ToolStripMenuItem.Text = "修改密码";
             this.修改密码ToolStripMenuItem.Click += new System.EventHandler(this.修改密码ToolStripMenuItem_Click);
             // 

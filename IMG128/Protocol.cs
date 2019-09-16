@@ -37,6 +37,8 @@ public struct COMM_FRAME_T{
 	public char frameTail;
 };
 
+
+
 namespace IMG128
 {
     public class Protocol
@@ -63,6 +65,8 @@ namespace IMG128
         public const UInt16 FRAME_TYPE_LN = 0x4E4C; //"LN" 传感器上传采样线数据
         public const UInt16 FRAME_TYPE_NK = 0x4E4B;	//"NK" Device busy
         public const UInt16 FRAME_TYPE_CS = 0x5343; //"CS" calibrate sensor
+        public const UInt16 FRAME_TYPE_MD = 0x444D;	//"MD" model
+
 
         static  UInt16 DEF_FRM_LEN = 8;                                       //default frm len
         //static UInt16 FRM_LEN_SM	=	DEF_FRM_LEN + sizeof(CH_MODE);          //Set mode
@@ -70,13 +74,13 @@ namespace IMG128
         static UInt16 FRM_LEN_RP = (UInt16)(DEF_FRM_LEN + Marshal.SizeOf(typeof(REC_ITEM)));         //report
         static UInt16 FRM_LEN_GR = (UInt16)(DEF_FRM_LEN + Marshal.SizeOf(typeof(REC_ITEM)));         //Get report
         //static UInt16 FRM_LEN_GS = 	DEF_FRM_LEN + sizeof(PM_STATE) + 4);	//4:程序版本号 Get satate 
-        //static UInt16 FRM_LEN_GC = (UInt16)(DEF_FRM_LEN + Marshal.SizeOf(typeof(CFG_T)));	        //Get Config 
-        //static UInt16 FRM_LEN_SC = (UInt16)(DEF_FRM_LEN + Marshal.SizeOf(typeof(CFG_T)));		    //Set Config 
+        static UInt16 FRM_LEN_GC = (UInt16)(DEF_FRM_LEN + Marshal.SizeOf(typeof(CFG_T)));	        //Get Config 
+        static UInt16 FRM_LEN_SC = (UInt16)(DEF_FRM_LEN + Marshal.SizeOf(typeof(CFG_T)));		    //Set Config 
         //static UInt16 FRM_LEN_ST = DEF_FRM_LEN;					                        //Set time
-        static UInt16 FRM_LEN_MAX = 5120;
+        static UInt16 FRM_LEN_MAX = 8192;
         //#define FRM_LEN_LN				(DEFAULT_PRO_CMD_LEN + sizeof(u16) * PIX_NUM)	//
         static UInt16 FRM_LEN_LN = (UInt16)(DEF_FRM_LEN + sizeof(UInt16) * REC.PIX_NUM);
-        
+        static UInt16 FRM_LEN_MD = ((UInt16)(DEF_FRM_LEN + Marshal.SizeOf(typeof(ANAL_T))));
         //
         const char FRM_HEADER = '[';
         const char FRM_TAIL = ']';
@@ -192,6 +196,7 @@ namespace IMG128
 	        
 	        return ret;
         }
+
         //private void COMM_frameDeal(COMM_FRAME_T frame)
         //{
         //    ushort type = frame.type;
@@ -213,6 +218,7 @@ namespace IMG128
         //        //case FRAME_TYPE_MS: COMM_cmdMS(port, p); break;	//20190618 选择基准波形
         //        //case FRAME_TYPE_FS: COMM_cmdFS(port, p); break;	//20190722 厂家设置
         //        //case FRAME_TYPE_DT: COMM_cmdDT(); break;	//20190722 厂家设置
+
         //        default: break;
         //    }
         //}
